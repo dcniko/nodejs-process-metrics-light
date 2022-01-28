@@ -1,16 +1,16 @@
 {
-  "name": "node-process-metrics-light",
+  "name": "node-process-metrics-lite",
   "version": "0.1.0",
   "description": "retrieve Node.js process metrics",
   "author": "dcniko@github",
   "main": "lib/index.js",
-  "homepage": "https://github.com/dcniko/node-process-metrics-light",
+  "homepage": "https://github.com/dcniko/node-process-metrics-lite",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dcniko/node-process-metrics-light.git"
+    "url": "git+https://github.com/dcniko/node-process-metrics-lite.git"
   },
   "bugs": {
-    "url": "https://github.com/dcniko/node-process-metrics-light/issues"
+    "url": "https://github.com/dcniko/node-process-metrics-lite/issues"
   },
   "license": "MIT",
   "scripts": {
