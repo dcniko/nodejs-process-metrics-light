@@ -12,12 +12,23 @@ describe('Node Process Metrics Lite', () => {
   it('check default settings', () => {
     expect(npml._metrics).to.exist();
     const test = require('../lib')(['test']);
-    expect(test._metrics).to.be.an.array();
+    expect(test._metrics).to.contain('test');
     test.setMetrics(['processMemory']);
     expect(test._metrics).to.contain('processMemory');
   });
-  it('captures expected metrics synchronously', () => {
-    checkMetricsNew(npml.metrics());
+  it('checks open file descriptors', () => {
+    const ofd = require('../lib/metrics/openFileDescriptors');
+    expect(ofd.value).to.be.a.number();
+  });
+  it('captures expected metrics synchronously', async () => {
+    checkMetricsNew(await npml.metrics());
+  });
+  it('checks process active resources', () => {
+    process.getActiveResourcesInfo = function () {
+      return ['test', 'test'];
+    };
+    const par = require('../lib/metrics/processActiveResources');
+    expect(par.value).to.be.an.object();
   });
 });
 
@@ -30,6 +41,10 @@ function checkMetricsNew (metrics) {
   expect(metrics.processMemory.external).to.be.a.number();
   expect(metrics.processMemory.arrayBuffers).to.be.a.number();
   expect(metrics.processUptime).to.be.a.number();
+  expect(metrics.processCpu).to.be.an.object();
+  expect(metrics.processMetrics).to.be.an.object();
+  expect(metrics.processActiveResources).to.be.an.object();
+  expect(metrics.openFileDescriptors).to.be.a.number();
   expect(metrics.systemMetrics).to.be.an.object();
   expect(metrics.systemMetrics.freemem).to.be.a.number();
   expect(metrics.systemMetrics.loadavg).to.be.an.array();
@@ -38,4 +53,8 @@ function checkMetricsNew (metrics) {
   expect(metrics.systemMetrics.hostname).to.be.a.string();
   expect(metrics.systemMetrics.platform).to.be.a.string();
   expect(metrics.systemMetrics.totalmem).to.be.a.number();
+  expect(metrics.version).to.be.an.object();
+  expect(metrics.version.major).to.be.a.number();
+  expect(metrics.version.minor).to.be.a.number();
+  expect(metrics.version.patch).to.be.a.number();
 }
