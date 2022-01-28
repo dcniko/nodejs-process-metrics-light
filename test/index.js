@@ -1,7 +1,7 @@
 'use strict';
 const code = require('@hapi/code');
 const lab = require('@hapi/lab');
-const npml = require('../lib')();
+const npml = require('../')();
 
 // Test shortcuts
 const { describe, it } = exports.lab = lab.script();
@@ -11,7 +11,7 @@ const { expect } = code;
 describe('Node Process Metrics Lite', () => {
   it('check default settings', () => {
     expect(npml._metrics).to.exist();
-    const test = require('../lib')(['test']);
+    const test = require('../')(['test']);
     expect(test._metrics).to.contain('test');
     test.setMetrics(['processMemory']);
     expect(test._metrics).to.contain('processMemory');
@@ -20,8 +20,8 @@ describe('Node Process Metrics Lite', () => {
     const ofd = require('../lib/metrics/openFileDescriptors');
     expect(ofd.value).to.be.a.number();
   });
-  it('captures expected metrics synchronously', async () => {
-    checkMetricsNew(await npml.metrics());
+  it('captures expected metrics synchronously', () => {
+    checkMetricsNew(npml.metrics());
   });
   it('checks process active resources', () => {
     process.getActiveResourcesInfo = function () {
@@ -33,7 +33,6 @@ describe('Node Process Metrics Lite', () => {
 });
 
 function checkMetricsNew (metrics) {
-  console.log(metrics);
   expect(metrics.processMemory).to.be.an.object();
   expect(metrics.processMemory.rss).to.be.a.number();
   expect(metrics.processMemory.heapTotal).to.be.a.number();

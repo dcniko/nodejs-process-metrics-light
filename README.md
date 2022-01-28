@@ -1,4 +1,4 @@
-# node-process-metrics-light
+# node-process-metrics-lite
 
 Plugin based process and system metrics from a Node.js process. Includes router for Express framework.
 
@@ -6,7 +6,7 @@ Plugin based process and system metrics from a Node.js process. Includes router 
 
 ```javascript
 'use strict';
-const npml = require('node-process-metrics-light')();
+const npml = require('node-process-metrics-lite')();
 
 // Set required modules
 npml.setMetrics([
@@ -28,7 +28,7 @@ app.get('/metrics', npml.metricsRouter);
 
 ## API
 
-`node-process-metrics-light` provides the following default metrics:
+`node-process-metrics-lite` provides the following default metrics:
 
 * processMemory,
 * processUptime,
