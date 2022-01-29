@@ -30,6 +30,11 @@ describe('Node Process Metrics Lite', () => {
     const par = require('../lib/metrics/processActiveResources');
     expect(par.value).to.be.an.object();
   });
+  it('checks process uptime', () => {
+    const metricsOld = npml.metrics();
+    const metricsNew = npml.metrics();
+    expect(metricsNew.processUptime).not.to.equal(metricsOld.processUptime);
+  });
 });
 
 function checkMetricsNew (metrics) {
@@ -40,6 +45,7 @@ function checkMetricsNew (metrics) {
   expect(metrics.processMemory.external).to.be.a.number();
   expect(metrics.processMemory.arrayBuffers).to.be.a.number();
   expect(metrics.processUptime).to.be.a.number();
+  expect(metrics.processLag).to.be.a.number();
   expect(metrics.processCpu).to.be.an.object();
   expect(metrics.processMetrics).to.be.an.object();
   expect(metrics.processActiveResources).to.be.an.object();
