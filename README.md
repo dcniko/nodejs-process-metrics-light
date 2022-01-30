@@ -22,7 +22,7 @@ console.log(npml.metrics());
 const app = require('express')();
 
 // Use as an Express router
-app.get('/metrics', npml.metricsRouter);
+app.get('/metrics', (req, res) => { return res.send(npml.metrics()); });
 
 ```
 
@@ -32,7 +32,13 @@ app.get('/metrics', npml.metricsRouter);
 
 * processMemory,
 * processUptime,
-* systemMetrics.
+* processLag,
+* processCpu,
+* processMetrics (handles and requests),
+* processActiveResources,
+* openFileDescriptors,
+* systemMetrics,
+* version (of NodeJS).
 
 Additional modules:
   * processData,
